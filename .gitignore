@@ -1,0 +1,13 @@
+# Separate SOSBIKE project (nested git clone — keep local only)
+SOSBIKE_LANDINGPAGE/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Local env / secrets
+.env
+.env.*
+*.pem
+id_rsa*

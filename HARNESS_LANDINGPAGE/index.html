@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harness Engineering | Biến AI coding agent thành công cụ kỹ thuật đáng tin</title>
+    <meta
+      name="description"
+      content="Khóa học Harness Engineering: 12 bài lecture, project thực hành và template AGENTS.md — thiết kế môi trường để Codex, Claude Code và agentic coding chạy ổn định."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="background-atmosphere" aria-hidden="true"></div>
+    <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+
+    <div class="page-shell">
+      <header class="site-header" id="site-header">
+        <a class="brand" href="#top" aria-label="Harness Engineering trang chủ">
+          <span class="brand-mark" aria-hidden="true">HE</span>
+          <div class="brand-copy">
+            <span class="brand-name">HARNESS ENGINEERING</span>
+            <span class="brand-tag">AI agent reliability course</span>
+          </div>
+        </a>
+
+        <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính">
+          <a href="#problem">Vấn đề</a>
+          <a href="#how-it-works">Vòng lặp</a>
+          <a href="#solutions">Giải pháp</a>
+          <a href="#architecture">5 subsystem</a>
+          <a href="#curriculum">Chương trình học</a>
+          <a href="#templates">Template</a>
+          <a href="./article/index.html">Bài viết</a>
+          <a href="#testimonials">Bảo chứng</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Mở menu điều hướng"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <a class="button header-button" href="#curriculum">Bắt đầu học</a>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Kỹ thuật thiết kế môi trường cho AI coding agent</p>
+            <h1>
+              Model mạnh không đủ. Harness mới quyết định agent có đáng tin hay không.
+            </h1>
+            <p class="hero-lead">
+              Khóa học tổng hợp thực hành từ OpenAI, Anthropic và cộng đồng Harness
+              Engineering — dạy bạn thiết kế instructions, state, verification và
+              feedback loop để Codex, Claude Code và môi trường agentic chạy ổn định
+              trên repo thật.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button primary" href="#curriculum">Học Lecture 01</a>
+              <a class="button ghost" href="#how-it-works">Xem vòng lặp harness</a>
+            </div>
+
+            <div class="hero-caption">
+              <span>
+                <span class="cap-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                12 bài lecture có cấu trúc
+              </span>
+              <span>
+                <span class="cap-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                Project + template sẵn dùng
+              </span>
+              <span>
+                <span class="cap-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                Khóa học — không phải gói SaaS
+              </span>
+            </div>
+          </div>
+
+          <div class="hero-panel reveal">
+            <div class="hero-metrics">
+              <article class="hero-metric">
+                <strong>5</strong>
+                <span>Subsystem harness cốt lõi</span>
+              </article>
+              <article class="hero-metric">
+                <strong>64%</strong>
+                <span>Tăng hiệu suất chỉ bằng thiết kế harness (SWE-agent)</span>
+              </article>
+              <article class="hero-metric">
+                <strong>12</strong>
+                <span>Bài lecture từ lý thuyết đến handoff</span>
+              </article>
+            </div>
+
+            <div class="hero-trust">
+              <div class="trust-chip">
+                <span class="trust-kicker">Nguồn tham chiếu</span>
+                <strong>OpenAI Harness Engineering · Anthropic long-running agents</strong>
+              </div>
+              <div class="trust-chip">
+                <span class="trust-kicker">Đầu ra thực tế</span>
+                <strong>AGENTS.md, feature_list.json, PROGRESS.md</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="problem" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Nỗi đau khi dùng agent không harness</p>
+            <h2>
+              Agent không yếu vì model — mà vì môi trường không ràng buộc, không verify
+              và không giữ được state giữa các session.
+            </h2>
+          </div>
+
+          <div class="problem-grid">
+            <article class="problem-card reveal">
+              <span class="problem-value">50–60%</span>
+              <h3>Benchmark ≠ thực tế</h3>
+              <p>
+                SWE-bench Verified chỉ ~50–60% pass rate dù điều kiện lý tưởng. Yêu cầu
+                mơ hồ, không test sẵn — tỷ lệ thành công còn thấp hơn nữa.
+              </p>
+            </article>
+
+            <article class="problem-card reveal">
+              <span class="problem-value">Context</span>
+              <h3>Mất thread giữa session</h3>
+              <p>
+                Session mới không nhớ quyết định, file đã sửa, test đang pass hay fail.
+                Mỗi lần mở lại tốn 15+ phút chỉ để “đoán lại” trạng thái.
+              </p>
+            </article>
+
+            <article class="problem-card reveal">
+              <span class="problem-value">Sớm</span>
+              <h3>Tuyên bố “xong” quá sớm</h3>
+              <p>
+                Unit test pass, code nhìn ổn — nhưng E2E chưa chạy, migration lỗi, config
+                thiếu. Agent overconfident; harness phải thay “cảm giác” bằng verify.
+              </p>
+            </article>
+
+            <article class="problem-card reveal">
+              <span class="problem-value">Scope</span>
+              <h3>Overreach &amp; under-finish</h3>
+              <p>
+                Một prompt rộng → 12 file, 800 dòng, không feature nào pass E2E. Attention
+                bị chia; WIP&gt;1 khiến không task nào hoàn thành đúng nghĩa.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="solutions" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Hai lớp giải pháp</p>
+            <h2>
+              Harness Engineering giải quyết cả “chạy đúng ngay lúc này” và “giữ độ tin
+              cậy qua nhiều session dài”.
+            </h2>
+          </div>
+
+          <div class="solution-grid">
+            <article class="solution-card hot reveal">
+              <span class="solution-tone">Control layer</span>
+              <h3>
+                Ràng buộc hành vi: WIP=1, feature list, completion evidence, 3-layer
+                termination check.
+              </h3>
+              <p>
+                Agent không tự giới hạn — harness phải vẽ ranh giới task và định nghĩa
+                “done” bằng lệnh chạy được. Quan trọng hơn: <strong>pass-state gating</strong>
+                — agent không có quyền tự đánh dấu DONE; chỉ harness (hệ thống chạy test)
+                mới được chuyển feature sang trạng thái passing.
+              </p>
+              <ul>
+                <li>Feature list: behavior + verification command + state</li>
+                <li>Pass-state gating — agent submit verify, harness quyết định done</li>
+                <li>3-layer termination + E2E — không shortcut unit test</li>
+              </ul>
+            </article>
+
+            <article class="solution-card warm reveal">
+              <span class="solution-tone">Continuity layer</span>
+              <h3>
+                Repo là system of record: state persistence, init phase, observability
+                và clean handoff.
+              </h3>
+              <p>
+                Kiến thức không có trong repo = không tồn tại với agent. PROGRESS.md,
+                DECISIONS.md, sprint contract và session exit checklist giữ continuity
+                qua session dài.
+              </p>
+              <ul>
+                <li>AGENTS.md ngắn — router, không phải bách khoa</li>
+                <li>Initialization tách khỏi implementation</li>
+                <li>Clean state 5 điều kiện trước khi kết thúc session</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="how-it-works" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Vòng lặp harness</p>
+            <h2>Từ mục tiêu rõ ràng đến handoff sạch — 4 bước lặp lại mỗi session.</h2>
+          </div>
+
+          <div class="steps-grid">
+            <article class="step-card reveal">
+              <div class="step-num">01</div>
+              <div class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <h3>Clear objective</h3>
+              <p>
+                Định nghĩa task trong AGENTS.md, đọc feature list, chạy init.sh — session
+                bắt đầu từ trạng thái đã biết, không đoán mò.
+              </p>
+            </article>
+
+            <article class="step-card reveal">
+              <div class="step-num">02</div>
+              <div class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <h3>Run task</h3>
+              <p>
+                Agent thực thi một feature active (WIP=1). Code, test, commit theo từng
+                đơn vị nguyên tử — không ôm nhiều việc cùng lúc.
+              </p>
+            </article>
+
+            <article class="step-card reveal">
+              <div class="step-num">03</div>
+              <div class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <h3>Verify &amp; QA</h3>
+              <p>
+                Harness chạy lint, test, E2E — không tin lời agent. Pass-state gating:
+                chỉ khi verification command pass thì harness mới unlock trạng thái
+                passing; agent không tự tick done.
+              </p>
+            </article>
+
+            <article class="step-card reveal">
+              <div class="step-num">04</div>
+              <div class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+              </div>
+              <h3>Handoff sạch</h3>
+              <p>
+                Cập nhật PROGRESS.md, dọn artifact tạm, đảm bảo build + test pass. Session
+                sau đọc repo là tiếp tục được — không mất 30–50% thời gian chẩn đoán lại.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="architecture" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">5 subsystem harness</p>
+            <h2>
+              Harness = mọi thứ ngoài model weights. Thiếu một subsystem là trải nghiệm
+              agent sẽ luôn “khó dùng”.
+            </h2>
+          </div>
+
+          <div class="architecture-grid">
+            <article class="feature-module reveal">
+              <span class="module-tag">01 Instructions</span>
+              <h3>AGENTS.md / CLAUDE.md — entry router</h3>
+              <p>Overview, lệnh chạy, hard constraints, link tới topic docs. ~50–200 dòng.</p>
+              <ul>
+                <li>Repo IS the spec</li>
+                <li>Tách file — tránh lost in the middle</li>
+                <li>Fresh session test</li>
+              </ul>
+            </article>
+
+            <article class="feature-module reveal">
+              <span class="module-tag">02 Tools</span>
+              <h3>Shell, file, test — least privilege</h3>
+              <p>Agent cần hành động được; không có tools thì chỉ là chatbot.</p>
+              <ul>
+                <li>Cursor, Claude Code, Codex patterns</li>
+                <li>Không tắt shell hoàn toàn</li>
+                <li>Tool output là input quan trọng</li>
+              </ul>
+            </article>
+
+            <article class="feature-module reveal">
+              <span class="module-tag">03 Environment</span>
+              <h3>Reproducible runtime</h3>
+              <p>pyproject.toml, devcontainer, Makefile — môi trường tự mô tả.</p>
+              <ul>
+                <li>make setup / make test / make check</li>
+                <li>Init phase riêng — không trộn implement</li>
+                <li>Template &gt; empty directory</li>
+              </ul>
+            </article>
+
+            <article class="feature-module reveal">
+              <span class="module-tag">04 State</span>
+              <h3>Continuity qua session</h3>
+              <p>PROGRESS.md, DECISIONS.md, git commits như checkpoint miễn phí.</p>
+              <ul>
+                <li>Rebuild cost: 15 phút → ~3 phút</li>
+                <li>Context anxiety &amp; compaction</li>
+                <li>ACID cho agent state</li>
+              </ul>
+            </article>
+
+            <article class="feature-module wide reveal">
+              <span class="module-tag">05 Feedback — ROI cao nhất</span>
+              <h3>
+                Verification commands trong AGENTS.md: pytest, mypy, ruff, E2E — feedback
+                subsystem thường đầu tư ít, hiệu quả lớn nhất.
+              </h3>
+              <p>
+                Observability (runtime + process), sprint contract, evaluator rubric, review
+                feedback promotion — harness tự mạnh dần theo từng session.
+              </p>
+              <ul>
+                <li>3-layer termination: lint → behavior → system E2E</li>
+                <li>Error message viết cho agent — có bước sửa cụ thể</li>
+                <li>Clean state 5 điều kiện khi exit session</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="benefits" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Giá trị định lượng</p>
+            <h2>Harness không làm model “thông minh hơn” — nó khai thác hết capability đã có.</h2>
+          </div>
+
+          <div class="benefit-grid">
+            <article class="benefit-card reveal">
+              <span class="benefit-value">37%</span>
+              <h3>Completion cao hơn</h3>
+              <p>WIP=1 và scope rõ so với prompt rộng — completion rate tăng đáng kể trên cùng model.</p>
+            </article>
+
+            <article class="benefit-card reveal">
+              <span class="benefit-value">78%</span>
+              <h3>Ít rebuild hơn</h3>
+              <p>State persistence giảm thời gian session mới phải “đoán lại” từ ~15 phút xuống ~3 phút.</p>
+            </article>
+
+            <article class="benefit-card reveal">
+              <span class="benefit-value">5/5</span>
+              <h3>Reliability leap</h3>
+              <p>Cùng model Opus 4.5: bare run game không chạy vs harnessed 6h — game playable hoàn toàn.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="stats-section">
+          <div class="stats-inner">
+            <div class="stat-item reveal">
+              <span class="stat-value" data-target="64" data-suffix="%">0%</span>
+              <p>tăng hiệu suất chỉ bằng thiết kế harness — không đổi model (SWE-agent)</p>
+            </div>
+            <div class="stat-item reveal">
+              <span class="stat-value" data-target="37" data-suffix="%">0%</span>
+              <p>completion cao hơn với WIP=1 so với prompt rộng (Anthropic)</p>
+            </div>
+            <div class="stat-item reveal">
+              <span class="stat-value" data-target="31" data-suffix="%">0%</span>
+              <p>feature completion cao hơn khi tách init phase (Anthropic)</p>
+            </div>
+            <div class="stat-item reveal">
+              <span
+                class="stat-value"
+                data-target="60"
+                data-suffix="–80%"
+                data-decimals="0"
+                >0</span
+              >
+              <p>giảm thời gian chẩn đoán đầu session khi có PROGRESS.md</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="curriculum" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Chương trình học</p>
+            <h2>
+              Mười hai bài lecture, project thực hành và bộ template — học theo lộ trình,
+              không theo gói dịch vụ.
+            </h2>
+          </div>
+
+          <div class="curriculum-grid">
+            <article class="pricing-card reveal">
+              <span class="plan-tier">Lectures</span>
+              <h3>12 bài lý thuyết</h3>
+              <p>
+                Từ “model mạnh vẫn fail” đến observability và clean handoff. Mỗi bài ~10
+                slide: Problem → Concepts → How-to → Case study.
+              </p>
+              <ul>
+                <li>L01–02: Harness fundamentals</li>
+                <li>L03–06: Repo, context, initialization</li>
+                <li>L07–12: Control, verify, observe, handoff</li>
+              </ul>
+              <a class="pricing-cta" href="#curriculum-lectures">Xem 12 bài lecture</a>
+            </article>
+
+            <article class="pricing-card featured reveal">
+              <span class="plan-badge">Bắt đầu tại đây</span>
+              <span class="plan-tier">Projects</span>
+              <h3>Thực hành trên repo thật</h3>
+              <p>
+                So sánh prompt-only vs rules-first. Đo verification gap, rebuild cost và
+                VCR khi có/không có harness.
+              </p>
+              <ul>
+                <li>Project 01: Baseline vs Minimal Harness</li>
+                <li>Project 02: Agent-readable workspace</li>
+                <li>Project 04–05: Scope control &amp; self-verify</li>
+              </ul>
+              <a class="pricing-cta" href="#how-it-works">Làm Project 01</a>
+            </article>
+
+            <article class="pricing-card driver reveal">
+              <span class="plan-tier">Templates</span>
+              <h3>Resource library</h3>
+              <p>
+                Copy-ready vào repo của bạn — không cần viết harness từ đầu.
+              </p>
+              <ul>
+                <li>AGENTS.md / CLAUDE.md mẫu</li>
+                <li>feature_list.json schema</li>
+                <li>PROGRESS.md + DECISIONS.md + init.sh</li>
+              </ul>
+              <a class="pricing-cta" href="#templates">Tải template pack</a>
+            </article>
+          </div>
+
+          <div id="templates" class="template-pack reveal">
+            <div class="section-heading template-pack-heading">
+              <p class="eyebrow">Resource library</p>
+              <h2>Copy vào repo — một click tải từng file.</h2>
+            </div>
+            <p class="template-pack-lead">
+              Bộ tối thiểu theo Lecture L07–L08 (feature list, pass-state gating) và L12
+              (PROGRESS handoff). Xem hướng dẫn trong
+              <a href="./templates/README.md">templates/README.md</a>.
+            </p>
+            <div class="template-download-grid">
+              <a class="template-file-card" href="./templates/AGENTS.md" download>
+                <strong>AGENTS.md</strong>
+                <span>Entry router · WIP=1 · definition of done</span>
+              </a>
+              <a class="template-file-card" href="./templates/CLAUDE.md" download>
+                <strong>CLAUDE.md</strong>
+                <span>Claude Code entry · trỏ về AGENTS.md</span>
+              </a>
+              <a class="template-file-card" href="./templates/feature_list.json" download>
+                <strong>feature_list.json</strong>
+                <span>Behavior + verification + state schema</span>
+              </a>
+              <a class="template-file-card" href="./templates/PROGRESS.md" download>
+                <strong>PROGRESS.md</strong>
+                <span>Session handoff · rebuild cost thấp</span>
+              </a>
+              <a class="template-file-card" href="./templates/DECISIONS.md" download>
+                <strong>DECISIONS.md</strong>
+                <span>Design rationale log</span>
+              </a>
+              <a class="template-file-card" href="./templates/init.sh" download>
+                <strong>init.sh</strong>
+                <span>Session startup script</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="phases-grid">
+            <article class="phase-card reveal">
+              <div class="phase-num">01</div>
+              <h3>Nền tảng</h3>
+              <p>L01–L02</p>
+              <ul>
+                <li>Capability gap &amp; failure modes</li>
+                <li>5-tuple harness model</li>
+              </ul>
+            </article>
+            <article class="phase-card reveal">
+              <div class="phase-num">02</div>
+              <h3>State &amp; repo</h3>
+              <p>L03–L06</p>
+              <ul>
+                <li>Repo as spec · Split instructions</li>
+                <li>Session continuity · Init phase</li>
+              </ul>
+            </article>
+            <article class="phase-card reveal">
+              <div class="phase-num">03</div>
+              <h3>Kiểm soát scope</h3>
+              <p>L07–L09</p>
+              <ul>
+                <li>WIP=1 · Feature lists</li>
+                <li>Chặn false victory</li>
+              </ul>
+            </article>
+            <article class="phase-card reveal">
+              <div class="phase-num">04</div>
+              <h3>Vận hành</h3>
+              <p>L10–L12</p>
+              <ul>
+                <li>E2E verification</li>
+                <li>Observability · Clean handoff</li>
+              </ul>
+            </article>
+          </div>
+          <div id="curriculum-lectures" class="curriculum-lectures">
+            <div class="section-heading reveal">
+              <p class="eyebrow">Danh sách bài giảng</p>
+              <h2>12 lecture (L01–L12) — nội dung đã soạn, sẵn sàng đưa vào lộ trình.</h2>
+            </div>
+
+          <div class="blog-grid">
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">01</div>
+              <span class="blog-meta">Lecture 01 · Nền tảng</span>
+              <h3>Strong Models Don't Mean Reliable Execution</h3>
+              <p>Capability gap, 5 failure modes, diagnostic loop — check harness trước khi đổi model.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">02</div>
+              <span class="blog-meta">Lecture 02 · Nền tảng</span>
+              <h3>What a Harness Actually Is</h3>
+              <p>5 subsystem: Instructions, Tools, Environment, State, Feedback — không chỉ là prompt file.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">03</div>
+              <span class="blog-meta">Lecture 03 · State</span>
+              <h3>Making the Repository the Single Source of Truth</h3>
+              <p>Knowledge visibility gap, fresh session test, ACID cho agent state.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">04</div>
+              <span class="blog-meta">Lecture 04 · State</span>
+              <h3>Split Instructions Across Files</h3>
+              <p>Entry file là router; tránh AGENTS.md 600 dòng và lost in the middle.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">05</div>
+              <span class="blog-meta">Lecture 05 · State</span>
+              <h3>Keeping Context Alive Across Sessions</h3>
+              <p>PROGRESS.md, DECISIONS.md, context anxiety, mixed compaction/reset strategy.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">06</div>
+              <span class="blog-meta">Lecture 06 · Init</span>
+              <h3>Make the Agent Initialize Before Every Work Session</h3>
+              <p>Tách init vs implement; startup readiness checklist 4 điều kiện.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">07</div>
+              <span class="blog-meta">Lecture 07 · Control</span>
+              <h3>Draw Clear Task Boundaries for Agents</h3>
+              <p>WIP=1, completion evidence, VCR — overreach và under-finish là hai mặt một đồng xu.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">08</div>
+              <span class="blog-meta">Lecture 08 · Control</span>
+              <h3>Use Feature Lists to Constrain What the Agent Does</h3>
+              <p>Triple structure, pass-state gating, granularity “completable in one session”.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">09</div>
+              <span class="blog-meta">Lecture 09 · Control</span>
+              <h3>Preventing Agents from Declaring Victory Too Early</h3>
+              <p>3-layer termination, tách worker/checker, error message cho agent.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">10</div>
+              <span class="blog-meta">Lecture 10 · Verify</span>
+              <h3>Only a Full Pipeline Run Counts as Real Verification</h3>
+              <p>Component boundary defects, E2E as forcing function, review feedback promotion.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">11</div>
+              <span class="blog-meta">Lecture 11 · Observe</span>
+              <h3>Making the Agent's Runtime Observable</h3>
+              <p>Sprint contract, evaluator rubric, runtime + process observability.</p>
+            </article>
+
+            <article class="blog-card reveal">
+              <div class="blog-thumb" aria-hidden="true">12</div>
+              <span class="blog-meta">Lecture 12 · Handoff</span>
+              <h3>Leave a Clean Handoff at the End of Every Session</h3>
+              <p>Clean state 5 điều kiện, entropy/coffee cup effect, dual-mode cleanup.</p>
+            </article>
+          </div>
+          </div>
+        </section>
+
+        <section id="testimonials" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Bảo chứng từ nghiên cứu</p>
+            <h2>
+              Harness không phải ý kiến cá nhân — OpenAI, Anthropic và SWE-agent đều chỉ ra
+              cùng một kết luận.
+            </h2>
+          </div>
+
+          <div class="testimonial-grid">
+            <article class="testimonial-card reveal">
+              <div class="testimonial-stars" aria-hidden="true">SWE-agent</div>
+              <p class="testimonial-quote">
+                “Chỉ thay đổi thiết kế môi trường làm việc (Harness), hiệu suất của mô hình
+                tăng tới 64% — không cần nâng cấp model.”
+              </p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar" aria-hidden="true">64</div>
+                <div>
+                  <strong>SWE-agent</strong>
+                  <span>Agent-Computer Interface research</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card reveal">
+              <div class="testimonial-stars" aria-hidden="true">Anthropic</div>
+              <p class="testimonial-quote">
+                “Tách biệt giai đoạn Initialization giúp tỷ lệ hoàn thành tính năng tăng 31%
+                trong các phiên làm việc dài.”
+              </p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar" aria-hidden="true">AN</div>
+                <div>
+                  <strong>Anthropic</strong>
+                  <span>Effective harnesses for long-running agents</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card reveal">
+              <div class="testimonial-stars" aria-hidden="true">OpenAI</div>
+              <p class="testimonial-quote">
+                “Khung kiểm soát (Harness) không làm mô hình thông minh hơn — nó đảm bảo
+                khả năng của mô hình được hiện thực hóa thay vì lãng phí vào việc đoán mò.”
+              </p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar" aria-hidden="true">OA</div>
+                <div>
+                  <strong>OpenAI Codex</strong>
+                  <span>Harness engineering in an agent-first world</span>
+                </div>
+              </div>
+            </article>
+          </div>
+          <p class="testimonial-note">
+            * Trích ý chính từ bài giảng và tài liệu gốc OpenAI, Anthropic, SWE-agent.
+          </p>
+        </section>
+
+        <section id="faq" class="section">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Câu hỏi thường gặp</p>
+            <h2>Harness Engineering khác gì “prompt engineering”?</h2>
+          </div>
+
+          <div class="faq-list">
+            <details class="faq-item reveal">
+              <summary class="faq-question">
+                Đây có phải khóa bán gói SaaS không?
+                <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Không. Đây là khóa học kỹ thuật: lecture, project và template. Phần
+                  “Chương trình học” mô tả lộ trình nội dung — không phải bảng giá
+                  subscription.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item reveal">
+              <summary class="faq-question">
+                AGENTS.md có thay được model đắt hơn không?
+                <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Nhiều case: có. Cùng model, thêm AGENTS.md + verification commands có thể
+                  tăng success rate từ ~20% lên 80%+. Đổi model là option đắt nhất — check
+                  harness trước.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item reveal">
+              <summary class="faq-question">
+                Pass-state gating nghĩa là gì?
+                <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Agent không được tự đổi state feature sang “passing”. Agent chỉ submit
+                  verification request; harness chạy lệnh test và mới quyết định done. Đây
+                  là cơ chế chặn false victory — không tin lời “đã xong” của model.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item reveal">
+              <summary class="faq-question">
+                WIP=1 có quá chậm không?
+                <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Ngược lại: ít code hơn nhưng nhiều feature pass E2E hơn. Case 8 features:
+                  WIP=1 đạt 87.5% completion vs 37.5% khi agent ôm 5 feature cùng lúc.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item reveal">
+              <summary class="faq-question">
+                Bắt đầu từ đâu nếu mới học?
+                <span class="faq-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Lecture 01 → Lecture 02 → Project 01. Song song: đặt AGENTS.md vào repo
+                  root, thêm make test / make check, rồi chạy fresh session test.
+                </p>
+              </div>
+            </details>
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-brand">
+          <span class="brand-mark" aria-hidden="true">HE</span>
+          <div>
+            <h3>Harness Engineering</h3>
+            <p>Khóa học thiết kế môi trường cho AI coding agent — lecture, project, template.</p>
+          </div>
+        </div>
+
+        <nav class="footer-links" aria-label="Điều hướng footer">
+          <a href="#problem">Vấn đề</a>
+          <a href="#curriculum">Chương trình học</a>
+          <a href="#templates">Template</a>
+          <a href="#testimonials">Bảo chứng</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <div class="footer-meta">
+          <span>OpenAI · Anthropic · SWE-agent · Awesome Harness Engineering</span>
+          <a href="./article/index.html">Phiên bản Substack (long-read)</a>
+        </div>
+
+        <p class="footer-copy">© 2026 Harness Engineering Course. Học theo lộ trình, không theo gói.</p>
+      </footer>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>

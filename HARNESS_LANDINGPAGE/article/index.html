@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harness Engineering là gì? | Khóa học &amp; lộ trình 12 bài</title>
+    <meta
+      name="description"
+      content="Long-read kiểu Substack: Harness Engineering là gì, vì sao SWE-agent +64% chỉ nhờ thiết kế môi trường, và lộ trình 12 lecture thực hành."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="substack-bar">
+      <a class="substack-bar__brand" href="../index.html">
+        <span class="substack-bar__mark">HE</span>
+        Harness Engineering
+      </a>
+      <div class="substack-bar__actions">
+        <a class="substack-bar__link hide-mobile" href="../index.html">Landing đầy đủ</a>
+        <a class="substack-bar__link hide-mobile" href="../templates/README.md">Template</a>
+        <a class="btn-subscribe" href="#bat-dau">Bắt đầu học</a>
+      </div>
+    </header>
+
+    <article class="article-wrap">
+      <header class="article-header">
+        <p class="article-kicker">Goon's Solo Playbook · Khóa học Harness Engineering</p>
+        <h1 class="article-title">Harness Engineering là gì?</h1>
+        <p class="article-deck">
+          Khoảng 1–2 năm trước ta có Prompt Engineering, vừa master xong thì thế giới AI
+          chuyển sang Context Engineering — đang lọ mọ thì lại nghe tới Harness Engineering…
+        </p>
+        <div class="article-meta">
+          <span><strong>Duy / Harness Course</strong></span>
+          <span>12 lecture · Open-source template</span>
+          <span>Cập nhật 2026</span>
+        </div>
+        <div class="engagement-bar">
+          <span class="engagement-pill">♥ 178</span>
+          <span class="engagement-pill">💬 34</span>
+          <span class="engagement-pill">↗ Chia sẻ</span>
+          <span class="engagement-pill">12 bài giảng</span>
+        </div>
+      </header>
+
+      <figure class="cover-card">
+        <div class="cover-fallback">
+          <h2>Harness Engineering</h2>
+          <p>The Art of AI Orchestration — thiết kế môi trường, không chỉ prompt</p>
+        </div>
+      </figure>
+
+      <div class="prose">
+        <p>
+          Mọi thứ đang thay đổi rất nhanh. Đừng lo — nếu hiểu <strong>bản chất</strong>,
+          gọi tên gì cũng được. Trong bài này (và khóa 12 lecture đi kèm), chúng ta cùng
+          trả lời: <strong>Harness Engineering là gì</strong>, vì sao <strong>model không
+          phải thứ quan trọng nhất</strong>, và làm sao biến agent thành công cụ kỹ thuật
+          đáng tin.
+        </p>
+
+        <hr />
+
+        <h2 id="la-gi">1/ Harness Engineering là gì?</h2>
+        <p>
+          Harness Engineering là kỹ thuật xây dựng toàn bộ <strong>môi trường</strong>
+          xung quanh AI model — tools, quyền truy cập, bộ nhớ, feedback loops, guardrails,
+          quản lý context, handoff giữa sessions — <em>tất cả mọi thứ trừ model weights</em>.
+        </p>
+        <blockquote>
+          “Mỗi khi agent mắc lỗi, bạn không cầu nguyện nó làm tốt hơn lần sau — bạn xây
+          giải pháp để nó <strong>không bao giờ</strong> mắc lỗi đó nữa.” — Mitchell
+          Hashimoto
+        </blockquote>
+        <p>
+          90% người dùng AI vẫn chỉ tối ưu prompt và chọn model xịn hơn, trong khi thiếu
+          phần quan trọng nhất: <strong>thiết kế môi trường</strong> cho agent vận hành.
+        </p>
+
+        <figure class="figure">
+          <div class="figure-label">Ba giai đoạn tiến hóa</div>
+          <div class="diagram-card">
+            <div class="evo-row">
+              <div class="evo-step">
+                <span>2022–2024</span>
+                <strong>Prompt Engineering</strong>
+                <p>“Hỏi AI thế nào cho đúng?” — tập trung câu hỏi</p>
+              </div>
+              <div class="evo-step">
+                <span>2025</span>
+                <strong>Context Engineering</strong>
+                <p>“Đưa thông tin gì vào context?” — tập trung dữ liệu đầu vào</p>
+              </div>
+              <div class="evo-step is-current">
+                <span>2026</span>
+                <strong>Harness Engineering</strong>
+                <p>“Hệ sinh thái quanh model vận hành ra sao?” — toàn bộ hệ thống</p>
+              </div>
+            </div>
+          </div>
+          <p class="diagram-caption">
+            Prompt = viết email · Context = đính kèm file · Harness = thiết kế cả văn phòng
+          </p>
+        </figure>
+
+        <figure class="figure">
+          <div class="figure-label">Luồng tổng quan</div>
+          <div class="diagram-card">
+            <svg viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="20" y="40" width="100" height="40" rx="8" fill="#f4f4f5" stroke="#d4d4d8"/>
+              <text x="70" y="65" text-anchor="middle" font-size="13" font-weight="600" fill="#18181b">Input</text>
+              <path d="M130 60 H180" stroke="#ff6719" stroke-width="2" marker-end="url(#arr)"/>
+              <rect x="180" y="20" width="280" height="80" rx="10" fill="#fff7f2" stroke="#ff6719" stroke-width="2"/>
+              <text x="320" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#18181b">HARNESS</text>
+              <text x="320" y="68" text-anchor="middle" font-size="11" fill="#52525b">Context · Tools · State · Verify · Handoff</text>
+              <text x="320" y="86" text-anchor="middle" font-size="11" fill="#52525b">WIP=1 · Pass-state gating · E2E</text>
+              <path d="M470 60 H520" stroke="#ff6719" stroke-width="2" marker-end="url(#arr)"/>
+              <rect x="520" y="40" width="100" height="40" rx="8" fill="#f4f4f5" stroke="#d4d4d8"/>
+              <text x="570" y="65" text-anchor="middle" font-size="13" font-weight="600" fill="#18181b">Output</text>
+              <defs>
+                <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                  <path d="M0,0 L6,3 L0,6 Z" fill="#ff6719"/>
+                </marker>
+              </defs>
+            </svg>
+          </div>
+        </figure>
+
+        <h2 id="model">2/ Tại sao model không phải thứ quan trọng nhất?</h2>
+        <p>
+          Cùng một model, cùng task, cùng compute — <strong>chỉ đổi thiết kế môi trường</strong>
+          — hiệu suất tăng <strong>64%</strong> (paper SWE-agent, Princeton NLP, NeurIPS 2024).
+          Khác biệt giữa công cụ dùng được và vô dụng đến từ <em>environment design</em>, không
+          phải model mới.
+        </p>
+
+        <div class="stat-callout">
+          <div class="num">+64%</div>
+          <p>
+            Chỉ thay đổi Agent-Computer Interface (harness) — không nâng cấp model weights
+          </p>
+        </div>
+
+        <blockquote>
+          “The model is what thinks. The harness is what it thinks about. Getting that
+          distinction right is the entire game.” — Rohit Verma
+        </blockquote>
+
+        <h2 id="swe-agent">3/ Bài học từ SWE-agent: thiết kế interface cho agent</h2>
+        <p>
+          AI agent không suy nghĩ như người: token tuần tự, working memory giới hạn, dễ nhiễu
+          bởi context thừa. ACI (Agent-Computer Interface) thiết kế <strong>xung quanh</strong>
+          hạn chế đó — không chống lại chúng.
+        </p>
+
+        <figure class="figure">
+          <div class="figure-label">Traditional vs AI Agent workflow</div>
+          <div class="diagram-card">
+            <div class="grid-2x2">
+              <div class="grid-cell">
+                <h4>Con người + IDE</h4>
+                <p>Nhìn toàn cảnh, nhớ convention, tự verify E2E. Lỗi thường do thiếu thời gian.</p>
+              </div>
+              <div class="grid-cell">
+                <h4>Agent không harness</h4>
+                <p>Prompt rộng, grep 10k dòng, tự kết luận “xong”, mất state giữa session.</p>
+              </div>
+              <div class="grid-cell">
+                <h4>Agent + harness tối thiểu</h4>
+                <p>AGENTS.md, giới hạn tool output, linter sau mỗi edit, PROGRESS.md handoff.</p>
+              </div>
+              <div class="grid-cell">
+                <h4>Agent + harness đầy đủ</h4>
+                <p>Feature list, pass-state gating, 3-layer termination, E2E bắt buộc, WIP=1.</p>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        <ul>
+          <li><strong>Search có giới hạn</strong> — tối đa ~50 kết quả, ép refine query</li>
+          <li><strong>File viewer có dòng số</strong> — ~100 dòng/lần, Goldilocks zone</li>
+          <li><strong>Editor + linter</strong> — reject syntax error ngay, chặn failure dây chuyền</li>
+          <li><strong>Context management</strong> — nén history cũ, giữ signal</li>
+        </ul>
+
+        <h2 id="anthropic">4/ Anthropic: hai failure mode &amp; kiến trúc multi-agent</h2>
+        <p><strong>Pattern 1 — Làm quá nhiều một lúc:</strong> ôm cả project, hết context, session sau nhận đống code dở dang.</p>
+        <p><strong>Pattern 2 — Tuyên bố chiến thắng quá sớm:</strong> thấy có code → kết luận “xong” — suy luận hợp lý từ thông tin thiếu.</p>
+        <p>
+          Giải pháp khóa học map trực tiếp: <strong>WIP=1</strong>, <strong>feature list
+          JSON</strong>, <strong>init phase</strong> tách riêng, <strong>evaluator</strong> tách
+          khỏi generator — và <strong>pass-state gating</strong>: agent không tự đánh dấu DONE.
+        </p>
+
+        <figure class="figure">
+          <div class="figure-label">Vòng lặp harness (4 bước)</div>
+          <div class="diagram-card">
+            <div class="harness-loop" role="img" aria-label="Vòng lặp: Clear objective, Run, Verify, Handoff">
+              <svg class="harness-loop__arcs" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                  <marker id="loop-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                    <path d="M0,0 L6,3 L0,6 Z" fill="#ff6719"/>
+                  </marker>
+                </defs>
+                <path d="M 200 78 A 122 122 0 0 1 322 200" fill="none" stroke="#ff6719" stroke-width="3" marker-end="url(#loop-arrow)"/>
+                <path d="M 322 200 A 122 122 0 0 1 200 322" fill="none" stroke="#ff6719" stroke-width="3" marker-end="url(#loop-arrow)"/>
+                <path d="M 200 322 A 122 122 0 0 1 78 200" fill="none" stroke="#ff6719" stroke-width="3" marker-end="url(#loop-arrow)"/>
+                <path d="M 78 200 A 122 122 0 0 1 200 78" fill="none" stroke="#ff6719" stroke-width="3" marker-end="url(#loop-arrow)"/>
+              </svg>
+              <div class="harness-loop__ring" aria-hidden="true"></div>
+              <div class="harness-loop__step harness-loop__step--top">
+                <strong>CLEAR OBJECTIVE</strong>
+                <span>AGENTS.md · init.sh</span>
+              </div>
+              <div class="harness-loop__step harness-loop__step--right">
+                <strong>RUN</strong>
+                <span>WIP=1</span>
+              </div>
+              <div class="harness-loop__step harness-loop__step--bottom">
+                <strong>VERIFY</strong>
+                <span>pass-state gating</span>
+              </div>
+              <div class="harness-loop__step harness-loop__step--left">
+                <strong>HANDOFF</strong>
+                <span>PROGRESS.md</span>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        <h2 id="nam-subsystem">5/ Năm subsystem — khung harness đầy đủ</h2>
+        <p>
+          Harness = <strong>Instructions + Tools + Environment + State + Feedback</strong>.
+          Thiếu một subsystem → agent luôn “khó dùng”. Feedback (verify commands) thường
+          ROI cao nhất.
+        </p>
+
+        <figure class="figure">
+          <div class="figure-label">5-tuple harness model</div>
+          <div class="diagram-card">
+            <div class="tuple-model" role="img" aria-label="5 subsystem: Instructions, Tools, Agent, Environment, State, Feedback">
+              <div class="tuple-box tuple-box--instructions">
+                <strong>01 Instructions</strong>
+                <span>AGENTS.md router</span>
+              </div>
+              <div class="tuple-box tuple-box--tools">
+                <strong>02 Tools</strong>
+                <span>shell · file · test</span>
+              </div>
+              <div class="tuple-box tuple-box--agent">
+                <strong>AI Agent</strong>
+              </div>
+              <div class="tuple-box tuple-box--environment">
+                <strong>03 Environment</strong>
+                <span>make setup · check</span>
+              </div>
+              <div class="tuple-box tuple-box--state">
+                <strong>04 State</strong>
+                <span>PROGRESS.md</span>
+              </div>
+              <div class="tuple-box tuple-box--feedback">
+                <strong>05 Feedback</strong>
+                <span>E2E · 3-layer termination</span>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        <h2 id="ba-lop">6/ Ba lớp termination — chặn “xong” giả</h2>
+        <p>
+          Unit test pass ≠ task complete. Khóa học ép <strong>3-layer validation</strong>:
+          lint/type → runtime behavior → system E2E. Kết hợp <strong>pass-state gating</strong>
+          trên <code>feature_list.json</code>.
+        </p>
+
+        <figure class="figure">
+          <div class="figure-label">3-layer termination check</div>
+          <div class="diagram-card">
+            <svg viewBox="0 0 640 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="40" y="50" width="160" height="60" rx="8" fill="#f4f4f5" stroke="#d4d4d8"/>
+              <text x="120" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#18181b">Layer 1</text>
+              <text x="120" y="96" text-anchor="middle" font-size="10" fill="#52525b">Lint · Typecheck</text>
+              <path d="M210 80 H250" stroke="#ff6719" stroke-width="2"/>
+              <rect x="250" y="50" width="160" height="60" rx="8" fill="#f4f4f5" stroke="#d4d4d8"/>
+              <text x="330" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#18181b">Layer 2</text>
+              <text x="330" y="96" text-anchor="middle" font-size="10" fill="#52525b">Tests · Startup</text>
+              <path d="M420 80 H460" stroke="#ff6719" stroke-width="2"/>
+              <rect x="460" y="50" width="160" height="60" rx="8" fill="#fff7f2" stroke="#ff6719" stroke-width="2"/>
+              <text x="540" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#18181b">Layer 3</text>
+              <text x="540" y="96" text-anchor="middle" font-size="10" fill="#52525b">E2E · User flow</text>
+              <text x="320" y="140" text-anchor="middle" font-size="11" fill="#71717a">Chỉ khi cả 3 pass → harness set feature = passing</text>
+            </svg>
+          </div>
+        </figure>
+
+        <div class="terminal">
+          <div class="terminal__bar">session exit · pass-state gating</div>
+          <div class="terminal__body">
+            <span class="cmd">$</span> make check<br />
+            <span class="ok">✓</span> lint passed<br />
+            <span class="ok">✓</span> unit tests passed<br />
+            <span class="ok">✓</span> e2e: POST /api/items → 201<br />
+            <span class="ok">→</span> harness updates F02: active → <strong>passing</strong><br />
+            <span style="color:#71717a"># agent cannot self-mark DONE</span>
+          </div>
+        </div>
+
+        <h2 id="khoa-hoc">7/ Khóa học: 12 lecture + template</h2>
+        <p>
+          Bài viết này là “explainer”. Khóa học đi sâu từng cơ chế — có project, có template
+          copy vào repo. Không phải gói SaaS; học theo lộ trình.
+        </p>
+
+        <ul class="lecture-list">
+          <li>
+            <span class="num">L01</span>
+            <div><strong>Strong Models Don't Mean Reliable Execution</strong><span>Capability gap · diagnostic loop · check harness trước khi đổi model</span></div>
+          </li>
+          <li>
+            <span class="num">L02</span>
+            <div><strong>What a Harness Actually Is</strong><span>5 subsystem · repo IS the spec</span></div>
+          </li>
+          <li>
+            <span class="num">L03–06</span>
+            <div><strong>State, repo &amp; initialization</strong><span>Single source of truth · split AGENTS.md · PROGRESS.md · init phase</span></div>
+          </li>
+          <li>
+            <span class="num">L07–09</span>
+            <div><strong>Control layer</strong><span>WIP=1 · feature list primitive · chặn false victory</span></div>
+          </li>
+          <li>
+            <span class="num">L10–12</span>
+            <div><strong>Operate</strong><span>E2E pipeline · observability · clean handoff</span></div>
+          </li>
+        </ul>
+
+        <hr />
+
+        <h2 id="ket-luan">8/ Tạm kết</h2>
+        <p>
+          Nếu chỉ nhớ một câu: <strong>Model là thứ suy nghĩ. Harness là thứ nó suy nghĩ
+          VỀ.</strong> Harness mới quyết định kết quả cuối cùng — kể cả khi benchmark model
+          đã rất cao.
+        </p>
+        <p>
+          Harness Engineering là systems thinking cho môi trường agent: API design, error
+          handling, testing strategy — chỉ khác domain: thiết kế cho LLM thay vì cho người.
+        </p>
+
+        <div class="cta-box" id="bat-dau">
+          <h3>Ready for more?</h3>
+          <p>
+            Vào khóa 12 lecture, tải template AGENTS.md + feature_list.json + PROGRESS.md,
+            hoặc xem landing đầy đủ với diagram tương tác.
+          </p>
+          <div class="cta-box__actions">
+            <a class="btn-subscribe" href="../index.html#curriculum">Vào chương trình học</a>
+            <a class="btn-ghost" href="../index.html#templates">Tải template pack</a>
+            <a class="btn-ghost" href="../index.html">Landing SOSBIKE-style</a>
+          </div>
+        </div>
+      </div>
+
+      <footer class="article-footer">
+        <p>
+          © 2026 Harness Engineering Course ·
+          <a href="https://goonnguyen.substack.com/p/harness-engineering-la-gi">Bài gốc Substack</a>
+          · <a href="../index.html">Landing đầy đủ</a>
+        </p>
+      </footer>
+    </article>
+
+    <script src="./main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "$schema": "harness/feature-list/v1",
+  "description": "Single source of truth for scope. Harness controls state transitions (pass-state gating).",
+  "rules": {
+    "wip_limit": 1,
+    "allowed_states": ["not_started", "active", "blocked", "passing"],
+    "gating": "Agent may request verification; only harness may set passing after verification exits 0"
+  },
+  "features": [
+    {
+      "id": "F01",
+      "behavior": "GET /api/health returns 200 with body {\"status\":\"ok\"}",
+      "verification": "curl -sf http://localhost:3000/api/health | grep -q '\"status\":\"ok\"'",
+      "state": "passing",
+      "evidence": {
+        "commit": "",
+        "verified_at": "",
+        "notes": "Example: already passing at harness init"
+      }
+    },
+    {
+      "id": "F02",
+      "behavior": "POST /api/items with valid JSON returns 201 and item id",
+      "verification": "curl -sf -X POST http://localhost:3000/api/items -H 'Content-Type: application/json' -d '{\"name\":\"test\"}' | grep -q '\"id\"'",
+      "state": "active",
+      "evidence": {
+        "commit": "",
+        "verified_at": "",
+        "notes": "Only one feature may be active (WIP=1)"
+      }
+    },
+    {
+      "id": "F03",
+      "behavior": "User can list items via GET /api/items with pagination default 20",
+      "verification": "curl -sf 'http://localhost:3000/api/items' | grep -q '\"items\"'",
+      "state": "not_started",
+      "evidence": null
+    }
+  ]
+}

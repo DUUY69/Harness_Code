@@ -1,0 +1,36 @@
+name: FE CI
+
+on:
+  pull_request:
+    paths:
+      - "HARNESS_LANDINGPAGE/**"
+      - "scripts/**"
+      - ".github/workflows/fe-ci.yml"
+      - ".github/html-validate.json"
+  push:
+    branches: [main, master]
+    paths:
+      - "HARNESS_LANDINGPAGE/**"
+      - "scripts/**"
+      - ".github/workflows/fe-ci.yml"
+      - ".github/html-validate.json"
+
+concurrency:
+  group: fe-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify landing page
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run FE verification
+        run: bash scripts/verify-fe.sh
