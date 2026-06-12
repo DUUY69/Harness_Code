@@ -31,14 +31,18 @@ python -m http.server 8093
 | `fe-ci.yml` | PR / push `main` | Validate HTML, kiểm tra file + link nội bộ |
 | `fe-deploy.yml` | Sau CI pass trên `main` | Deploy toàn bộ `frontend/` qua SSH/rsync |
 
-### Secrets (Settings → Secrets → Actions)
+### Cấu hình environment `production`
 
-| Secret | Ví dụ |
-|--------|--------|
-| `SSH_PRIVATE_KEY` | Private key SSH |
-| `SSH_HOST` | `168.144.38.133` |
-| `SSH_USER` | `root` |
-| `DEPLOY_PATH` | `/var/www/harness-landing` |
+**Settings → Environments → production**
+
+| Name | Nên để ở | Value |
+|------|-----------|--------|
+| `SSH_PRIVATE_KEY` | **Environment secrets** (không để Variables) | Nội dung `id_ed25519` |
+| `SSH_USER` | Secrets hoặc Variables | `root` |
+| `DEPLOY_PATH` | Secrets hoặc Variables | `/var/www/harness-landing` |
+| `SSH_HOST` | Variables | `168.144.38.133` |
+
+Workflow đọc cả Secrets và Variables, nhưng **private key phải ở Secrets** (Variables hiện plain text — ai có quyền repo đều thấy).
 
 Production: `http://168.144.38.133:8093/` · Mẫu SOSBIKE: `http://168.144.38.133:8093/sosbike/`
 
