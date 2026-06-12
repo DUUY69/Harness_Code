@@ -2,7 +2,7 @@
 
 const reveals = document.querySelectorAll(".reveal");
 const navLinks = document.querySelectorAll(".site-nav a");
-const sections = [...document.querySelectorAll("main section[id]")];
+const sections = [...document.querySelectorAll("main > section[id]")];
 const header = document.getElementById("site-header");
 const hamburger = document.getElementById("hamburger");
 const siteNav = document.getElementById("site-nav");
@@ -28,16 +28,17 @@ reveals.forEach((el) => {
 
 const setActiveSection = () => {
   const offset = window.scrollY + 220;
-  let activeId = "";
+  let activeId = sections[0]?.id || "";
 
   for (const section of sections) {
-    if (offset >= section.offsetTop) {
+    if (offset >= section.offsetTop - 80) {
       activeId = section.id;
     }
   }
 
   navLinks.forEach((link) => {
     const href = link.getAttribute("href");
+    if (!href?.startsWith("#")) return;
     link.classList.toggle("is-active", href === `#${activeId}`);
   });
 };

@@ -6,7 +6,7 @@ Repository cho khóa học **Harness Engineering** — landing page static deplo
 
 | Đường dẫn | Mô tả |
 |-----------|--------|
-| `/` | Landing Harness Engineering |
+| `/` | Landing — 6 mục: Trang chủ, Khái niệm, Nguyên lý, Dự án, Tài nguyên, Về chúng tôi |
 | `/article/` | Bài viết long-read |
 | `/templates/` | Template pack (AGENTS.md, feature_list.json, …) |
 

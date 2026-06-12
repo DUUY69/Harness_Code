@@ -559,6 +559,53 @@ h1, h2, h3, h4 { line-height: 1.2; }
 
 .section-heading { max-width: 820px; margin-bottom: 32px; }
 
+.page-section {
+  scroll-margin-top: 96px;
+  border-top: 1px solid var(--line);
+  padding-top: calc(var(--space-section) + 16px);
+}
+
+.page-section:first-of-type {
+  border-top: none;
+}
+
+.page-section-label {
+  max-width: 820px;
+  margin-bottom: 40px;
+}
+
+.page-section-title {
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  margin-top: 8px;
+  line-height: 1.2;
+}
+
+.section-block {
+  margin-top: 48px;
+}
+
+.section-block:first-child {
+  margin-top: 0;
+}
+
+.about-intro {
+  max-width: 780px;
+  margin-bottom: 40px;
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--surface-alt);
+}
+
+.about-intro p {
+  color: var(--muted-strong);
+  line-height: 1.8;
+}
+
+.resource-article-link {
+  margin: 32px 0 8px;
+}
+
 /* ============================================================
    CARD SHARED BASE
    ============================================================ */
