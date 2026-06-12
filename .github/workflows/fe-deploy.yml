@@ -56,4 +56,4 @@ jobs:
         run: |
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new \
             "${SSH_USER}@${SSH_HOST}" \
-            "chmod -R a+rX '${DEPLOY_PATH}' && chown -R www-data:www-data '${DEPLOY_PATH}' || true"
+            "rm -rf '${DEPLOY_PATH}/sosbike' '${DEPLOY_PATH}/assets'; chmod -R a+rX '${DEPLOY_PATH}' && chown -R www-data:www-data '${DEPLOY_PATH}' || true"
