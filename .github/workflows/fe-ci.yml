@@ -6,6 +6,7 @@ on:
       - "frontend/**"
       - "scripts/**"
       - ".github/workflows/fe-ci.yml"
+      - ".github/workflows/fe-deploy.yml"
       - ".github/html-validate.json"
   push:
     branches: [main, master]
@@ -13,6 +14,7 @@ on:
       - "frontend/**"
       - "scripts/**"
       - ".github/workflows/fe-ci.yml"
+      - ".github/workflows/fe-deploy.yml"
       - ".github/html-validate.json"
 
 concurrency:
