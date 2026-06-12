@@ -4,7 +4,7 @@ $Remote = "root@168.144.38.133"
 $RemoteDir = "/var/www/harness-landing"
 $LocalDir = $PSScriptRoot
 
-Write-Host "Uploading frontend to $Remote:$RemoteDir ..."
+Write-Host "Uploading frontend to ${Remote}:${RemoteDir} ..."
 ssh $Remote "mkdir -p $RemoteDir"
 scp -r `
   "$LocalDir\index.html" `
