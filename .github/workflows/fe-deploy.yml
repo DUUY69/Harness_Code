@@ -1,36 +1,27 @@
 name: FE Deploy
 
+# Manual redeploy only — automatic deploy runs in FE CI (deploy job on push main).
 on:
-  workflow_run:
-    workflows: [FE CI]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
-  group: fe-deploy-${{ github.ref }}
+  group: fe-deploy-manual
   cancel-in-progress: false
 
 jobs:
   deploy:
     name: Deploy to production
     runs-on: ubuntu-latest
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.head_branch == 'main')
     environment:
       name: production
       url: http://168.144.38.133:8093/
     env:
-      SSH_HOST: ${{ vars.SSH_HOST }}
+      SSH_HOST: ${{ vars.SSH_HOST || '168.144.38.133' }}
       SSH_USER: ${{ secrets.SSH_USER }}
       DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref || github.event.workflow_run.head_sha }}
 
       - name: Validate deploy config
         env:
@@ -39,12 +30,12 @@ jobs:
           missing=0
           for name in SSH_HOST SSH_USER DEPLOY_PATH; do
             if [ -z "${!name}" ]; then
-              echo "::error::Missing $name (production environment secret/variable)"
+              echo "::error::Missing $name"
               missing=1
             fi
           done
           if [ -z "$SSH_PRIVATE_KEY" ]; then
-            echo "::error::Missing SSH_PRIVATE_KEY (production environment secret)"
+            echo "::error::Missing SSH_PRIVATE_KEY"
             missing=1
           fi
           if [ "$missing" -ne 0 ]; then exit 1; fi
@@ -71,7 +62,7 @@ jobs:
       - name: Fix permissions on server
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ vars.SSH_HOST }}
+          host: ${{ vars.SSH_HOST || '168.144.38.133' }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
