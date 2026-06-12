@@ -75,12 +75,10 @@ jobs:
           ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o ConnectTimeout=15 \
             "${SSH_USER}@${SSH_HOST}" "echo ssh-ok"
 
-      - name: Rsync static files
+      - name: Sync static files
         run: |
-          rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new" \
-            frontend/ \
-            "${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}/"
+          tar -C frontend -cf - . | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new \
+            "${SSH_USER}@${SSH_HOST}" "mkdir -p '${DEPLOY_PATH}' && tar -xf - -C '${DEPLOY_PATH}'"
 
       - name: Fix permissions on server
         env:
