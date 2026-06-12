@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/HarnessOpsLab/HarnessOpsLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HarnessOpsLab.Tests/HarnessOpsLab.Tests.csproj" />
+  </Folder>
+</Solution>

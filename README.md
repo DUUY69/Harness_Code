@@ -1,6 +1,19 @@
 # Harness_Code
 
-Repository cho khóa học **Harness Engineering** — landing page static deploy qua CI/CD.
+Repository cho khóa học **Harness Engineering** — landing FE + **Lab C# (Nhóm OPS)**.
+
+## Nhóm OPS — Lab C# (.NET 8)
+
+| Path | Mô tả |
+|------|--------|
+| `labs/ops-csharp/` | Project 01/02 scaffold, `AGENTS.md`, xUnit verify |
+| `labs/ops-group/` | Đề xuất ngôn ngữ, chia việc, tin nhắn group |
+
+```powershell
+cd labs/ops-csharp
+dotnet test
+.\scripts\verify.ps1
+```
 
 ## Cấu trúc `frontend/`
 

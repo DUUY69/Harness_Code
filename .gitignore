@@ -3,6 +3,11 @@ HARNESS_LANDINGPAGE/
 SOSBIKE_LANDINGPAGE/
 _sosbike_fetch/
 
+# .NET build output
+**/bin/
+**/obj/
+*.user
+
 # OS / editor
 .DS_Store
 Thumbs.db
