@@ -8,6 +8,14 @@ _sosbike_fetch/
 **/obj/
 *.user
 
+# Python
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
 # OS / editor
 .DS_Store
 Thumbs.db
