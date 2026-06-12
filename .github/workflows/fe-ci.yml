@@ -3,14 +3,14 @@ name: FE CI
 on:
   pull_request:
     paths:
-      - "HARNESS_LANDINGPAGE/**"
+      - "frontend/**"
       - "scripts/**"
       - ".github/workflows/fe-ci.yml"
       - ".github/html-validate.json"
   push:
     branches: [main, master]
     paths:
-      - "HARNESS_LANDINGPAGE/**"
+      - "frontend/**"
       - "scripts/**"
       - ".github/workflows/fe-ci.yml"
       - ".github/html-validate.json"

@@ -1,17 +1,24 @@
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
-const feRoot = resolve(scriptDir, "../HARNESS_LANDINGPAGE");
+const feRoot = resolve(scriptDir, "../frontend");
 
-const htmlFiles = [
-  join(feRoot, "index.html"),
-  join(feRoot, "article/index.html"),
-];
+function collectHtmlFiles(dir, files = []) {
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) {
+      collectHtmlFiles(full, files);
+    } else if (entry.endsWith(".html")) {
+      files.push(full);
+    }
+  }
+  return files;
+}
 
+const htmlFiles = collectHtmlFiles(feRoot);
 const hrefPattern = /(?:href|src)=["']([^"']+)["']/g;
-
 const failures = [];
 
 for (const htmlPath of htmlFiles) {
@@ -47,4 +54,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log("Internal links OK (" + htmlFiles.length + " HTML files)");
+console.log(`Internal links OK (${htmlFiles.length} HTML files)`);

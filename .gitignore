@@ -1,5 +1,7 @@
-# Separate SOSBIKE project (nested git clone — keep local only)
+# Legacy local clones (merged into frontend/)
+HARNESS_LANDINGPAGE/
 SOSBIKE_LANDINGPAGE/
+_sosbike_fetch/
 
 # OS / editor
 .DS_Store

@@ -79,7 +79,7 @@ body {
   color: var(--text);
   background:
     linear-gradient(180deg, rgba(9, 16, 25, 0.70) 0%, rgba(9, 16, 25, 0.96) 38%),
-    radial-gradient(ellipse 120% 60% at 50% -10%, rgba(124, 58, 237, 0.18), transparent 50%),
+    url("./assets/hero-cover.jpg") top center / min(100%, 1600px) auto no-repeat,
     radial-gradient(circle at top left, rgba(255, 93, 31, 0.20), transparent 24%),
     radial-gradient(circle at 88% 16%, rgba(32, 198, 167, 0.14), transparent 20%),
     linear-gradient(180deg, #0b131d 0%, #091019 100%);
@@ -1763,7 +1763,7 @@ h1, h2, h3, h4 { line-height: 1.2; }
   body {
     background:
       linear-gradient(180deg, rgba(9,16,25,0.76) 0%, rgba(9,16,25,0.97) 30%),
-      radial-gradient(ellipse 100% 40% at 50% 0%, rgba(124, 58, 237, 0.14), transparent 50%),
+      url("./assets/hero-cover.jpg") top center / 100% auto no-repeat,
       radial-gradient(circle at top left, rgba(255,93,31,0.18), transparent 22%),
       linear-gradient(180deg, #0b131d 0%, #091019 100%);
   }

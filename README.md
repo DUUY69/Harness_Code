@@ -1,40 +1,45 @@
 # Harness_Code
 
-Repository cho khóa học **Harness Engineering** — landing page FE và tài liệu liên quan.
+Repository cho khóa học **Harness Engineering** — một frontend static deploy qua CI/CD.
 
-## Cấu trúc
+## Cấu trúc `frontend/`
 
-| Thư mục | Mô tả |
-|---------|--------|
-| `HARNESS_LANDINGPAGE/` | Landing page static (HTML/CSS/JS) — deploy tại `:8093` |
-| `SOSBIKE_LANDINGPAGE/` | (Local only, không push) — landing SOSBIKE tham chiếu UI |
-| `harness-slides-extract.txt` | Nội dung trích từ slide khóa học |
+| Đường dẫn | Mô tả |
+|-----------|--------|
+| `/` | Landing Harness Engineering (nội dung khóa học) |
+| `/article/` | Bài viết long-read |
+| `/templates/` | Template pack (AGENTS.md, feature_list.json, …) |
+| `/sosbike/` | **Mẫu landing SOSBIKE** ([repo thầy](https://github.com/MinhTuan1804/SOSBIKE_LANDINGPAGE)) — cùng layout/CSS, so sánh 1:1 |
+| `/assets/` | Hero cover + brand assets (đồng bộ mẫu SOSBIKE) |
 
-## Chạy FE local
+Harness landing dùng cùng design system và `hero-cover.jpg` như mẫu SOSBIKE để dễ chỉnh UI theo template thầy.
+
+## Chạy local
 
 ```powershell
-cd HARNESS_LANDINGPAGE
+cd frontend
 python -m http.server 8093
 ```
 
-Mở `http://localhost:8093`.
+- Harness: `http://localhost:8093/`
+- Mẫu SOSBIKE: `http://localhost:8093/sosbike/`
 
 ## CI/CD (GitHub Actions)
 
 | Workflow | Khi chạy | Việc làm |
 |----------|----------|-----------|
-| `fe-ci.yml` | PR / push vào `main` | Kiểm tra file bắt buộc, validate HTML, kiểm tra link nội bộ |
-| `fe-deploy.yml` | Push `main` (sau CI pass) | Deploy `HARNESS_LANDINGPAGE/` qua SSH/rsync |
+| `fe-ci.yml` | PR / push `main` | Validate HTML, kiểm tra file + link nội bộ |
+| `fe-deploy.yml` | Sau CI pass trên `main` | Deploy toàn bộ `frontend/` qua SSH/rsync |
 
-### Secrets cần thiết (Settings → Secrets → Actions)
+### Secrets (Settings → Secrets → Actions)
 
-| Secret | Ví dụ | Mô tả |
-|--------|-------|--------|
-| `SSH_PRIVATE_KEY` | `-----BEGIN OPENSSH PRIVATE KEY-----...` | Private key SSH (read/write deploy key) |
-| `SSH_HOST` | `168.144.38.133` | Máy chủ deploy |
-| `SSH_USER` | `root` | User SSH |
-| `DEPLOY_PATH` | `/var/www/harness-landing` | Thư mục đích trên server |
+| Secret | Ví dụ |
+|--------|--------|
+| `SSH_PRIVATE_KEY` | Private key SSH |
+| `SSH_HOST` | `168.144.38.133` |
+| `SSH_USER` | `root` |
+| `DEPLOY_PATH` | `/var/www/harness-landing` |
 
-Sau deploy, site: `http://168.144.38.133:8093/`
+Production: `http://168.144.38.133:8093/` · Mẫu SOSBIKE: `http://168.144.38.133:8093/sosbike/`
 
-Deploy thủ công (Windows): `HARNESS_LANDINGPAGE/deploy.ps1`
+Deploy thủ công: `frontend/deploy.ps1`
