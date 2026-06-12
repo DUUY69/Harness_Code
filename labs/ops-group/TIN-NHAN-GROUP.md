@@ -1,30 +1,30 @@
-# Tin nhắn gửi group Zalo OPS (copy)
+# Tin nhắn group Zalo OPS (cập nhật Python)
 
 ---
 
-Chào cả nhóm OPS 👋
+Chào nhóm OPS 👋
 
-Mình (Duy) đã scaffold sẵn lab C# trong repo Harness_Code để mọi người vào làm ngay, không phải setup từ đầu.
-
-**Đề xuất ngôn ngữ gửi thầy:** C# / .NET 8 (chính) + YAML CI + FE HTML (landing đã có).
+Chốt lại: **Lab 1–3 làm Python + pytest** (AI/Cursor ai cũng làm được). C# chỉ folder tùy chọn, không bắt buộc.
 
 **Repo:** https://github.com/DUUY69/Harness_Code  
-**Folder lab:** `labs/ops-csharp/`  
-**Chạy thử:**
+**Folder:** `labs/python-harness/`
+
 ```powershell
-cd labs/ops-csharp
-dotnet test
-.\scripts\verify.ps1
+cd labs/python-harness
+pip install -e ".[dev]"
+pytest -q
+python scripts/harness_verify.py
 ```
 
-**Chia việc tuần này:**
-- Duy: CI dotnet test + deploy
-- Kiệt: GitHub Actions + doc Project 01
-- Uyên: nội dung Lab trên web
-- Khoa: review test + 12-factor
+**3 Lab:**
+1. `docs/LAB01-EXPERIMENT.md` — prompt-only vs harness 3 file
+2. `docs/LAB02-FRESH-SESSION.md` — ARCHITECTURE + CONSTRAINTS, session mới
+3. `docs/LAB03-PASS-STATE.md` — WIP=1, harness_verify (không tự tick done)
 
-Chi tiết trong `labs/ops-group/CHIA-VIEC.md`.
+**Đề xuất thầy:** Python chính + YAML CI + HTML landing. Chi tiết `labs/ops-group/DE-XUAT-NGON-NGU.md`
 
-Mọi người confirm C# ok không? Ok thì mình gửi đề xuất lên chat lớp cho thầy.
+Chia việc: `labs/ops-group/CHIA-VIEC.md` — 5 người chia 3 lab.
+
+Confirm Python ok → gửi đề xuất lớp.
 
 ---

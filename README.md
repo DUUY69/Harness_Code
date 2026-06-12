@@ -2,17 +2,19 @@
 
 Repository cho khóa học **Harness Engineering** — landing FE + **Lab C# (Nhóm OPS)**.
 
-## Nhóm OPS — Lab C# (.NET 8)
+## Nhóm OPS — Labs Python (Lab 1–3)
 
 | Path | Mô tả |
 |------|--------|
-| `labs/ops-csharp/` | Project 01/02 scaffold, `AGENTS.md`, xUnit verify |
-| `labs/ops-group/` | Đề xuất ngôn ngữ, chia việc, tin nhắn group |
+| `labs/python-harness/` | **Lab chính** — giỏ hàng, pytest, pass-state gating |
+| `labs/ops-csharp/` | Tùy chọn (.NET demo) |
+| `labs/ops-group/` | Đề xuất ngôn ngữ, chia việc |
 
 ```powershell
-cd labs/ops-csharp
-dotnet test
-.\scripts\verify.ps1
+cd labs/python-harness
+pip install -e ".[dev]"
+pytest -q
+python scripts/harness_verify.py
 ```
 
 ## Cấu trúc `frontend/`

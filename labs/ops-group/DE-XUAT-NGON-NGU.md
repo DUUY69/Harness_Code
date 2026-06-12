@@ -1,36 +1,34 @@
-# Đề xuất ngôn ngữ — Nhóm OPS (Nhóm 3)
+# Đề xuất ngôn ngữ — Nhóm OPS (cập nhật)
 
-**Thành viên:** Lê Hoàng Tuấn Kiệt, Nhã Uyên, Trần Nhật Duy, Hoàng Anh Khoa
+**Thành viên:** Lê Hoàng Tuấn Kiệt, Nhã Uyên, Trần Nhật Duy, Hoàng Anh Khoa (+ …)
 
-## Đề xuất
-
-Nhóm OPS chọn **C# (.NET 8)** làm ngôn ngữ **chính** cho các bài Lab (Project thực hành).
+## Đề xuất chính: Python
 
 | Công nghệ | Vai trò |
 |-----------|---------|
-| **C# / .NET 8 + xUnit** | Logic lab, verification, pass-state gating qua `dotnet test` |
-| **PowerShell** | Script harness local (`verify.ps1`, `deploy.ps1`) |
-| **YAML** | GitHub Actions CI/CD |
-| **HTML/CSS/JS** | Landing khóa học (đã deploy) |
+| **Python 3.11 + pytest** | **Lab 1–3** (agent, verification, feature_list) |
+| **YAML** | GitHub Actions |
+| **PowerShell / Bash** | Deploy landing, script harness |
+| **HTML/CSS/JS** | Landing khóa (`frontend/`) |
 
-**Giai đoạn 2 (nếu thầy duyệt):** BAML generate client C# cho structured agent output.
+**Tùy chọn:** C# (`labs/ops-csharp/`) — ai rành .NET làm CI demo, **không bắt buộc cả nhóm**.
 
-## Vì sao C#?
+## Vì sao Python cho Lab (không ép C#)?
 
-1. **Verification rõ:** `dotnet build` + `dotnet test` = harness pipeline chuẩn production
-2. **Phù hợp OPS:** deploy, CI, Windows/server stack nhóm đang dùng
-3. **Agent-readable:** `AGENTS.md` + test filter map 1-1 với `feature_list.json`
-4. Khác nhóm BE9/STE (Python/TS) — tránh trùng, OPS ôm pipeline + .NET lab
+1. AI coding (Cursor, Claude) mặc định Python — cả nhóm làm Lab dễ hơn
+2. Khóa dùng `pytest` / verification commands — map 1-1 `feature_list.json`
+3. OPS vẫn ôm **CI/CD + landing**; ngôn ngữ lab ≠ ngôn ngữ deploy
+4. Lab task đơn giản (giỏ hàng) — không cần .NET stack
 
-## Deliverable tuần 1
+## Repo Lab
 
-- [x] Scaffold `labs/ops-csharp/` (solution + tests + harness files)
-- [ ] CI: `dotnet test labs/ops-csharp` trên push `main`
-- [ ] Nội dung Lab trên landing (mục **Dự án**)
-- [ ] Project 01 script: so sánh baseline vs có harness (doc + video ngắn)
+`labs/python-harness/` — scaffold sẵn 3 lab + `harness_verify.py` (pass-state gating)
 
-## Repo
+## Deliverable
+
+- [x] Python lab scaffold
+- [ ] Mỗi người 1 run Lab 1 (bảng so sánh)
+- [ ] Lab 2 fresh session (checklist)
+- [ ] Lab 3 + CI `pytest` trên push
 
 https://github.com/DUUY69/Harness_Code
-
-Landing: http://168.144.38.133:8093/

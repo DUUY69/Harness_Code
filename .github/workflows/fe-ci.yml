@@ -39,13 +39,15 @@ jobs:
       - name: Run FE verification
         run: bash scripts/verify-fe.sh
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          dotnet-version: "8.0.x"
+          python-version: "3.12"
 
-      - name: Test OPS C# lab
-        run: dotnet test labs/ops-csharp --verbosity quiet
+      - name: Test Python harness labs
+        run: |
+          pip install -e "labs/python-harness[dev]"
+          pytest labs/python-harness -q
 
   deploy:
     name: Deploy to production

@@ -1,0 +1,47 @@
+{
+  "$schema": "harness/feature-list/v1",
+  "description": "Lab 3 — WIP=1, verification via pytest (pass-state gating).",
+  "rules": {
+    "wip_limit": 1,
+    "allowed_states": [
+      "not_started",
+      "active",
+      "blocked",
+      "passing"
+    ],
+    "gating": "Agent submits verification; harness sets passing only when command exits 0"
+  },
+  "features": [
+    {
+      "id": "F01",
+      "title": "Giỏ hàng — thêm sản phẩm",
+      "behavior": "Cart.add() tăng total_items(); từ chối name rỗng",
+      "verification": "python -m pytest tests/test_cart.py::test_f01_cart_add_increases_total tests/test_cart.py::test_f01_cart_rejects_empty_name -q",
+      "state": "passing",
+      "evidence": {
+        "notes": "Lab 1 minimal harness — cart feature"
+      }
+    },
+    {
+      "id": "F02",
+      "title": "Agent-readable workspace",
+      "behavior": "docs/ARCHITECTURE.md và docs/CONSTRAINTS.md tồn tại (fresh session)",
+      "verification": "python -m pytest tests/test_cart.py::test_f02_repo_has_architecture_doc tests/test_cart.py::test_f02_repo_has_constraints_doc -q",
+      "state": "passing",
+      "evidence": {
+        "notes": "Lab 2 — single source of truth trong repo"
+      }
+    },
+    {
+      "id": "F03",
+      "title": "WIP=1 enforced",
+      "behavior": "feature_list.json có <= 1 feature active",
+      "verification": "python -m pytest tests/test_cart.py::test_f03_feature_list_wip_limit_one -q",
+      "state": "passing",
+      "evidence": {
+        "notes": "Lab 3 — chỉ harness đổi state sang passing",
+        "verified_at": "2026-06-12T12:44:31.571125+00:00"
+      }
+    }
+  ]
+}

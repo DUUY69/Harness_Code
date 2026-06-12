@@ -1,30 +1,35 @@
-# Chia việc Nhóm OPS — chuẩn bị Lab (C#)
+# Chia việc — 3 Lab Python (5 người)
 
-## Tuần này
+## Lab 1 — Baseline vs Minimal Harness
 
-| Người | Việc | Deadline gợi ý |
-|-------|------|----------------|
-| **Duy** | CI `dotnet test` lab, deploy landing, gửi đề xuất C# cho thầy | 2 ngày |
-| **Tuấn Kiệt** | Viết GitHub Actions job + doc Project 01 (baseline vs harness) | 3 ngày |
-| **Nhã Uyên** | Soạn mô tả Lab trên landing + đọc Substack/Martin Fowler (Khái niệm) | 3 ngày |
-| **Hoàng Anh Khoa** | Review test F03, bổ sung xUnit cho feature mới, đọc 12-factor (factor 8–9) | 3 ngày |
+**File:** `labs/python-harness/docs/LAB01-EXPERIMENT.md`
 
-## Project 01 — kịch bản thực hành
+| Người | Việc |
+|-------|------|
+| A | Run 1: prompt-only, ghi bảng |
+| B | Run 2: có AGENTS.md + feature_list + PROGRESS |
+| C | Tổng hợp verification gap, slide 1 trang |
 
-1. **Baseline:** Agent chỉ có code C#, không `AGENTS.md` → dễ claim “xong” sai
-2. **Minimal harness:** Thêm `AGENTS.md`, `feature_list.json`, `dotnet test` → pass-state gating
-3. **Đo:** số lần agent claim done vs test thực sự pass
+## Lab 2 — Agent-readable workspace
 
-## Project 02 — checklist workspace
+**File:** `labs/python-harness/docs/LAB02-FRESH-SESSION.md`
 
-- [ ] `AGENTS.md` (C# commands)
-- [ ] `docs/feature_list.json`
-- [ ] `PROGRESS.md` / `DECISIONS.md`
-- [ ] `scripts/verify.ps1`
-- [ ] xUnit test cho mỗi feature
+| Người | Việc |
+|-------|------|
+| D | Fresh session test (session mới, không giải thích) |
+| E | Review / mở rộng `ARCHITECTURE.md`, `CONSTRAINTS.md` |
 
-## Họp nhóm (30 phút)
+## Lab 3 — WIP=1 + pass-state gating
 
-1. Chốt đề xuất C# → copy `DE-XUAT-NGON-NGU.md` gửi chat lớp
-2. Chốt ai làm F03 (CI) tuần này
-3. Hỏi thầy: Lab nộp trước Chủ nhậy là draft repo hay video demo?
+**File:** `labs/python-harness/docs/LAB03-PASS-STATE.md`
+
+| Người | Việc |
+|-------|------|
+| Duy | CI `pytest labs/python-harness` |
+| Kiệt | Test `harness_verify.py`, feature F03 |
+| Uyên | Nội dung landing mục **Dự án** |
+| Khoa | Video demo Lab 3 (agent claim done vs harness verify) |
+
+## Không cần biết C#
+
+C# folder chỉ tham khảo. **Mọi người làm Lab bằng Python.**
